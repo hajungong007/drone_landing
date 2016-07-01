@@ -1,0 +1,15 @@
+<Node> imgprocess </Node>
+
+	<Topic>	Err_xy	</Topic>
+	<msg>	float64 err_x
+		float64 err_y
+		bool is_target_detected
+		time_t	tm 	//timestamp
+	</msg>
+
+	<Topic> Err_num </Topic>
+	<msg>	int num
+		bool isdetected
+		time_t	tm 	//timestamp
+	</msg>
+
