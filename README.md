@@ -8,6 +8,6 @@ make
 需要ROS   
 roscore   
 rosrun ardrone_autonomy ardrone_driver    
-rosrun crazy_landing drone_keyboard
+rosrun crazy_landing drone_keyboard    
 rosrun crazy_landing drone_vision    
 rosrun crazy_landing drone_controller
