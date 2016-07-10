@@ -3,8 +3,8 @@
 
 # 安装和使用
 放在catkin_ws/src/ 文件夹下   
-cd catkin_ws/build    
-make   
+cd catkin_ws    
+catkin_make   
 需要ROS   
 roscore   
 rosrun ardrone_autonomy ardrone_driver    
