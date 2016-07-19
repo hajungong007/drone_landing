@@ -17,12 +17,6 @@ void droneVision::valueInit(){
 	KNN_k=10;
 	TNPS=100;
 	CNUM=10;
-	//P=4;
-	//I=150;
-	//D=0;
-	//kN=2;
-    //frame_lost=false;
-  //  last_pub_time=ros::Time::now();
 	responses.create(TNPS*CNUM,1,CV_32FC1);
 		for(int i=0;i<CNUM;i++){
 		responses(Range(i*TNPS,(i+1)*TNPS),Range(0,1))=Scalar(i);
