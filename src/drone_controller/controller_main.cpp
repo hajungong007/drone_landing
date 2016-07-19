@@ -70,69 +70,7 @@ void getpicdirection(const crazy_landing::pic_direction& pic_directPtr){
     isdirection=pic_directPtr.is_direction;
     timestamppicdirect=float(pic_directPtr.header.stamp.sec)+floor(pic_directPtr.header.stamp.nsec*100.0)/10000.0;
 }
-/*
-void getpara(const crazy_landing::pid& pidPtr){
-	p=float(pidPtr.P);
-	i=(float(pidPtr.I)+300.0)/1000;
-	i=0.0;
-        d=pidPtr.D;
-	kn=pidPtr.kN;
-    ROS_INFO("p= %f,i = %f, d= %f, kn= %f",p,i,d,kn);
-}
 
-void set_altitude(float altitude_setted,ros::NodeHandle& n){
-        ros::spinOnce();
-        while(abs(errorz-altitude_setted)>thresholdz)
-        {
-			pid_z.setParam(p,i,d,kn);            
-			speed_z=pid_z.getOutput(-errorz+altitude_setted,timestampnav)/1000;
-            CLIP3(-0.5, speed_z,  0.5);			
-            drone.move(0.00,0.00,speed_z,0.00);
-            sleep(0.5);
-            drone.hover();
-            ros::spinOnce();
-        }
-}
-void set_altitude_quick(float altitude_setted,ros::NodeHandle& n){
-        ros::spinOnce();
-        while(errorz-altitude_setted<thresholdz)
-        {
-            speed_z=0.3;
-            CLIP3(-0.5, speed_z,  0.5);
-            drone.move(0.00,0.00,speed_z,0.00);
-            drone.hover();
-            ros::spinOnce();
-        }
-}
-void coord_geo2dro(float& geo_x,float& geo_y,float& dro_x,float& dro_y){
-    ros::spinOnce();
-    float theta=direction;//direction is between(-1,1)
-    dro_x=geo_x*cos(theta)+geo_y*sin(theta);
-    dro_y=-geo_x*sin(theta)+geo_y*cos(theta);
-}
-
-void coord_dro2geo(float& geo_x,float& geo_y,float& dro_x, float& dro_y,ros::NodeHandle& n){
-    ros::spinOnce();
-    float theta=direction;//direction is between(-1,1)
-    geo_x=dro_x*cos(theta)-dro_y*sin(theta);
-    geo_y=dro_x*sin(theta)+dro_y*cos(theta);
-}
-void coord_indoor2geo(float& geo_x,float& geo_y,float& indoor_x, float& indoor_y,float direction2){
-    float theta=direction2;//direction is between(-1,1)
-    geo_x=indoor_x*cos(theta)-indoor_y*sin(theta);
-    geo_y=indoor_x*sin(theta)+indoor_y*cos(theta);
-}
-void map_indoor2geo(point *map_indoor, point *map_geo,float direction2){
-    int i=0;
-    for(i=0;i<10;i++){ coord_indoor2geo(map_geo[i].x,map_geo[i].y,map_indoor[i].x,map_indoor[i].y,direction2);
-    }
-}
-float directerror(float directionsetted,float direction){
-    float error=directionsetted-direction;
-    if(error>3.1415927) error=error-3.1415927*2.0;
-    if(error<(-3.1415927)) error=error+3.1415927*2.0;
-    return error;
-}*/
 void PIDcorrect_direc(){
      ros::spinOnce();
         if(isdirection==false) ROS_INFO("error direction is not detected!\n");
@@ -150,8 +88,6 @@ void PIDcorrect_direc(){
             drone.move(0.00,0.00,0.00,speed_angle);//pay attention to the symbol +- of direction
             //do we need a pause after each adjust?
             usleep(500000);
-           // drone.hover();
-            //sleep(0.5);
             ros::spinOnce();
             ROS_INFO("pic_direction error is %f\n",errangle);
             ROS_INFO("speed_angle= %f\n",speed_angle);
@@ -204,17 +140,9 @@ void PIDcorrect_pic(float thresx,float thresy){
 				drone.hover();
 				ros::spinOnce();			
             }
-        /*   if(errorx>0) drone_key.pitch(0.2f);
-		   if(errorx<0) drone_key.pitch(-0.2f);
-		   if(errory>0) drone_key.roll(0.2f);
-		   if(errory<0) drone_key.roll(-0.2f);
-         */  
-           // }
+        
 		        speed_dro_x=pid_x.getOutput(errorx,timestamptarget);
                 speed_dro_y=pid_y.getOutput(errory,timestamptarget);
-                     //speed_angle=pid_angle.getOutput(directerror(directionsetted,direction),timestampnav);
-                    //coord_geo2dro(speed_geo_x,speed_geo_y,speed_dro_x,speed_dro_y,n);
-		    
                     CLIP3(-0.5, speed_dro_x,  0.5);
                     CLIP3(-0.5, speed_dro_y,  0.5);
                     drone.move(speed_dro_x,speed_dro_y,0.0,0.0);
@@ -236,12 +164,6 @@ void PIDcorrect_pic_landing(){
                 PIDcorrect_pic(thresholdx,thresholdy);    
                // PIDcorrect_direc();
 		        drone.land();		
-/*         drone.move(0.00,0.00,LANDSPEED,0.00);
-                sleep(1);
-                drone.hover();
-                ros::spinOnce();
-            }
-	*/
 }
 void movetarget(int num_from, int num_dest ){
             ROS_INFO("Move to the target %d.\n",num_dest);
@@ -252,29 +174,10 @@ void movetarget(int num_from, int num_dest ){
             route_for_now=route(map_indoor,num_from);
             pos_start[0]=pos_now[0];pos_start[1]=pos_now[1];pos_start[2]=pos_now[2];
             ROS_INFO("route_for_now_dist_total: %f\n",route_for_now.dist_total);
-            // dist_integrale_norm=0;//,dist_integrale[1]=0;
-				//pid_x.setParam(p,i,d,kn); 
-				//pid_y.setParam(p,i,d,kn); 
-    /*
-                float flightT[9];
-        flightT[0]=3.5;
-        flightT[1]=4.3;
-        flightT[2]=5.1;
-        flightT[3]=7.1;
-        flightT[4]=8.1;
-        flightT[5]=6.1;
-        flightT[6]=9.5;
-        flightT[7]=9.6;
-        flightT[8]=6.9;
-        
             
-               // int flightT=(route_for_now.dist_total*0.7742+1.057)*1000000;//proportion=1m 在0.1速度下的秒数
-               
                 speed_dro_x=route_for_now.dist_x/route_for_now.dist_total * 0.1;
 
                 speed_dro_y=route_for_now.dist_y/route_for_now.dist_total * 0.1;
-
-                //coord_geo2dro(speed_geo_x,speed_geo_y,speed_dro_x,speed_dro_y);
 				
                 CLIP3(-0.3,speed_dro_x ,  0.3);
                 CLIP3(-0.3,speed_dro_y ,  0.3);
@@ -363,83 +266,6 @@ int main(int argc,char* argv[]){
        //numdetected++;
        ROS_INFO("Moving done.\n");
        drone.hover();
-         //   sleep(4);
-            //利用图像在目标点修正
-  /*          ros::spinOnce();//get errorx errory
-	        int try_counter=0;
-            while(is_target_detected==false){
-	           try_counter++;
-	           if(try_counter>=3){
-                    drone.hover() ;
-                    ROS_INFO("Failed to find the target, quit...");
-                    return 0;
-                }
-                drone.move(speed_geo_x,speed_geo_y,0.00,0.00);
-                sleep(1);
-                drone.hover();
-                ROS_INFO("Can't find the target! Go on researching...\n");
-                ros::spinOnce();
-            }
-            ROS_INFO("Correcting by the picture...\n");
-            PIDcorrect_pic(thresholdstartx,thresholdstarty);
-            ROS_INFO("Correcting by the picture done.\n");
-            drone.hover();
-	sleep(4);*/
-/*
-        //识别前进行高度修正
-        ROS_INFO("Correcting altitude...\n");
-        PIDcorrect_alt();
-        ROS_INFO("Correcting altitude done.\n");
-       
-        //开始识别数字
-        ros::spinOnce();
-        if(isdetected==true) numdetected=num_for_now;
-        //ditectnum();//get numdetected
-        else
-        {
-            int fois=0;
-            while((isdetected==false)&&(fois<2)){
-                fois++;
-                ROS_INFO("Can't detecte the number!\n");
-                drone.move(0.0,0.0,0.1,0.00);
-                sleep(1);
-                drone.hover();
-                ros::spinOnce();
-            }
-        }
-        ROS_INFO("Num detected is %d\n",numdetected);
-        //如果numdetected不是numwanted，向numwanted前进
-       
-
-        while(numdetected!=numwanted)
-        {
-                ROS_INFO("Num detected is not wanted, set route to %d\n",numwanted);
-                
-                movetarget(numdetected,numwanted);    
-                
-                ros::spinOnce();             
-                ROS_INFO("Move done.\n");
-                ROS_INFO("Correcting by the picture...\n");
-                
-                ros::spinOnce();//get errorx errory
-                PIDcorrect_pic(thresholdstartx,thresholdstarty);
-                
-                ROS_INFO("Correction by the picture done.\n");
-                drone.hover();
-                
-                PIDcorrect_alt();
-                PIDcorrect_direc();
-                
-                ROS_INFO("Altitude and direction corrections done.\n");
-                ros::spinOnce();
-                if(isdetected==true) numdetected=num_for_now;//get numdetected
-
-        }
-*/
-
-//landing
-            //ros::spinOnce();
-            //sleep(1);
             ROS_INFO("Start to landing\n");
            // drone.hover();
             PIDcorrect_pic_landing();
