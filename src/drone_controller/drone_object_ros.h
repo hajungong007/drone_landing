@@ -40,12 +40,6 @@ public:
     bool hover();
     bool posCtrl(bool on);
     bool velMode(bool on);
-    
-   // commands for controling ARDrone
-    // pitch_lr = left-right tilt		(-1) to right		(+1)
-    // roll_fb = front-back tilt 		(-1) to backwards	(+1)
-    // v_du = velocity downwards	(-1) to upwards		(+1)
-    // w_lr = angular velocity left (-1) to right		(+1)
 
     bool move(float v_lr, float v_fb, float v_du, float w_lr);
     bool moveTo(float x, float y, float z);
