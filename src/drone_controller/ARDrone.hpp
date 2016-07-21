@@ -20,7 +20,6 @@ public:
 	bool hover();
 	bool reset();
 
-    ////////////////////////////////////////////////////////////SZ
         geometry_msgs::Twist twist_msg;
         geometry_msgs::Twist twist_msg_hover;
      //   geometry_msgs::Twist twist_msg_pshover;
@@ -32,13 +31,6 @@ public:
                        ros::Publisher pub_twist;
                        ros::Publisher pub_empty_takeoff;
                        ros::Publisher pub_empty_reset;
-        ///////////////////////////////////////////////////////////////
-
-	// move command
-	// v_lr = velocity left			(-1) to right		(+1)
-	// v_fb = velocity forwards		(-1) to backwards	(+1)
-	// v_du = velocity downwards	(-1) to upwards		(+1)
-	// w_lr = angular velocity left (-1) to right		(+1)
 	void ARDrone_init(ros::NodeHandle &);
 	bool move(float v_lr, float v_fb, float v_du, float w_lr);
 	bool moveLeft(float speed = -0.2);
