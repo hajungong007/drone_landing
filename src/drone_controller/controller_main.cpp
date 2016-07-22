@@ -2,8 +2,6 @@
 #define CLIP3(_n1, _n,  _n2) {if (_n<_n1) _n=_n1;  if (_n>_n2) _n=_n2;}
 #define LANDSPEED -0.8
 using namespace std;
-//should be values after pid algorithm
-
 
 float errorx;//projection on direction x of the local translation vector
 float errory;//projection on direction y of the local translation vector
@@ -26,8 +24,8 @@ float dist_integrale[2];
 PIDController pid_angle,pid_x,pid_y,pid_z,pid_x_move,pid_y_move;//关于水平angle的pid都需要换成pid_angle.getOutput()
 //float direction;//[-1,1]direction of forward of the UAV
 //float directionsetted;//=float(162.0)/180.0*3.1415927;//地面方框与东南西北夹角
-float altitude_setted=2.3;//图像识别定高
-float altitude_landing=0.3; //降落最小高度
+float altitude_setted=2.3;
+float altitude_landing=0.3; 
 float timestampnav,timestamptarget,timestampnum,timestamppos,timestampz,timestamppicdirect;
 float pos_now[3];
 float pos_start[3];
