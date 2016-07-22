@@ -6,8 +6,7 @@ using namespace std;
 float errorx;//projection on direction x of the local translation vector
 float errory;//projection on direction y of the local translation vector
 float errorz;//the altitude standard -projection on direction z of the local translation vector
-float errangle;//by picture
-//float p,i,d,kn;
+float errangle;
 //the acceptable domains
 //float proportion;//proportion=1m 在0.1速度下的秒数
 float thresholdstartx=0.035;
