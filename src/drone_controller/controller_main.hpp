@@ -2,8 +2,6 @@
 #define CONTROLLER_MAIN_HPP
 #include "ros/ros.h"
 #include <math.h>
-//
-//全部采用地磁坐标系，除了speed_geo为机身坐标系;
 #include "pid.hpp"
 #include "ARDrone.hpp"
 #include "getRoute.hpp"
