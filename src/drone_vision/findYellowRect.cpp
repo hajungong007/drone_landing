@@ -1,5 +1,5 @@
 #include "droneVision.hpp"
-#include <math.h>//atan
+#include <math.h>
 void droneVision::findYellowRect(const sensor_msgs::ImageConstPtr& msg){
 /***************ROS convertion*************/
 cv_bridge::CvImagePtr cv_ptr;
@@ -25,7 +25,7 @@ cv_bridge::CvImagePtr cv_ptr;
 	stringstream ss;
 
 	//vCap>>img_bgr;
-	img_bgr=cv_ptr->image;////////////////////////////////////
+	img_bgr=cv_ptr->image;
 	int COLS=img_bgr.cols;
 	int ROWS=img_bgr.rows;
 	//while(!img_bgr.empty()){
@@ -146,7 +146,6 @@ cv_bridge::CvImagePtr cv_ptr;
 						Mat M=getPerspectiveTransform(Src,Dst);
 						warpPerspective(img_erode,ROI,M, Size(numberSize,numberSize));
 						ROI=ROI(Range(1,numberSize-1),Range(1,numberSize-1));//remove noisy board !!Range is exclusive at right
-						///////////////////////imshow("DetectedNumber",ROI);
 						/*Calculate direction*/
 						crazy_landing::pic_direction dirmsg;
 						dirmsg.header.stamp=ros::Time::now();
@@ -189,7 +188,6 @@ cv_bridge::CvImagePtr cv_ptr;
 			displayOverlay("MainWindow","No contour found!",100);//cout<<"No contour found!"<<endl;
 			crazy_landing::error_xy errmsg;
 			errmsg.header.stamp=ros::Time::now();
-            //if(errmsg.header.stamp.sec+floor(odoPtr.header.stamp.nsec*100)/10000;-last_pub_time>0.)
 			errmsg.err_x=-1;//publish error_xy
 			errmsg.err_y=-1;
 			errmsg.is_target_detected=false;
