@@ -1,7 +1,6 @@
 #include "droneVision.hpp"
 void droneVision::valueInit(){
 	kernel_size=1;
-	//int reset=0;//reset param
 	Hmin=0;Hmax=84;//HSV threshold
 	Smin=0;Smax=255;
 	Vmin=100;Vmax=255;
