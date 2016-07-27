@@ -86,4 +86,4 @@ public:
   }
   
 };
-#endif // DRONEVISION_HPP
+#endif
