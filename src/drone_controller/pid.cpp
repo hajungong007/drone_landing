@@ -1,5 +1,4 @@
 
-//MoSLAM??
 #include "pid.hpp"
 
 
@@ -25,27 +24,21 @@ void PIDController::reset(){
 float PIDController::getOutput(float curerr, float t){
 	old_err = cur_err;
 	cur_err = curerr;
-    ///////////////////////////////
-    for (int i =0; i<10; ++i) errs[i+1]=errs[i];
-    errs[0]=curerr;
-    ///////////////////////////
-
+	for (int i =0; i<10; ++i) errs[i+1]=errs[i];
+        errs[0]=curerr;
+    
 	float s = 0;
-    float dt=t-old_time;
-		cur_I += cur_err*dt;
-		_P = cur_err;
-		_I = cur_I;
-		float Derr = (cur_err - old_err)/dt;
-		//_D = (kN*dt*Derr + old_D)/(kN*dt + 1);
-		//old_D = _D;
+        float dt=t-old_time;
+	cur_I += cur_err*dt;
+	_P = cur_err;
+	_I = cur_I;
+	float Derr = (cur_err - old_err)/dt;
 
-    //////////////////////////////
-    float aveerr = (errs[0]+errs[1])/2;
-    float pasterr =0;
-    for (int i=1; i<=3; ++i) pasterr+=errs[i];
-    pasterr/=3;
-    _D = aveerr - pasterr;
-    //cout << "        _P" << _P << " _D" << _D; //<< " _I" << _I
-    old_time=t;
+        float aveerr = (errs[0]+errs[1])/2;
+        float pasterr =0;
+        for (int i=1; i<=3; ++i) pasterr+=errs[i];
+        pasterr/=3;
+        _D = aveerr - pasterr;
+	old_time=t;
 	return kP*_P + kI*_I + kD*_D;
 }
