@@ -10,7 +10,6 @@ public:
 	float _P, _I, _D;
 	float old_err, cur_err;
 	float old_time;
-    //////////////////////////////
     	float errs[20];
 	/* error integration*/
 	float cur_I;
