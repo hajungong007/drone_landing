@@ -4,7 +4,7 @@
 #include <string>
 #include<sstream>
 #include <iomanip>
-/*****ROS Headers**********/
+/*****ROS Headers*********/
 #include <ros/ros.h>
 #include <std_msgs/Empty.h>
 #include <image_transport/image_transport.h>
