@@ -14,7 +14,7 @@ map_indoor[8].y = 1.11 ;map_indoor[8].x = -3.50;
 map_indoor[9].y = - 2.85 ;map_indoor[9].x = 5.49;
     
 }
-routedata route(point* map_geo,int a){ //getRoute from 2 points.
+routedata route(point* map_geo,int a){ //get route from 2 points.
        routedata route_calculated;
        route_calculated.dist_x=map_geo[a].x;
        route_calculated.dist_y=map_geo[a].y;
