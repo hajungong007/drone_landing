@@ -9,6 +9,7 @@
 /**
  * @brief A simple class to send the commands to the drone through 
  * the corresponding topics
+ * 
  */
 
 class DroneObjectROS{
