@@ -24,13 +24,10 @@ public:
         geometry_msgs::Twist twist_msg_hover;
      //   geometry_msgs::Twist twist_msg_pshover;
         std_msgs::Empty emp_msg;
-
-
-
-                       ros::Publisher pub_empty_land;
-                       ros::Publisher pub_twist;
-                       ros::Publisher pub_empty_takeoff;
-                       ros::Publisher pub_empty_reset;
+        ros::Publisher pub_empty_land;
+        ros::Publisher pub_twist;
+        ros::Publisher pub_empty_takeoff;
+        ros::Publisher pub_empty_reset;
 	void ARDrone_init(ros::NodeHandle &);
 	bool move(float v_lr, float v_fb, float v_du, float w_lr);
 	bool moveLeft(float speed = -0.2);
