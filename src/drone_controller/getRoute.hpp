@@ -16,6 +16,5 @@ class routedata
 };
 void set_route_data(point*);
 
-
 routedata  route(point* map_geo,int) ;
 #endif
