@@ -92,8 +92,6 @@ bool DroneObjectROS::velMode(bool on){
 }
 
 
-
-
 bool DroneObjectROS::move(float lr, float fb, float ud, float w) {
     if (!isFlying)
         return false;
@@ -156,7 +154,7 @@ bool DroneObjectROS::rise(float speed){
     twist_msg.linear.x = 0.0;
     twist_msg.linear.y = 0.0;
     twist_msg.linear.z = speed;
-    twist_msg.angular.x = 0.0;//flag for preventing hovering
+    twist_msg.angular.x = 0.0;
     twist_msg.angular.y = 0.0;
     twist_msg.angular.z = 0.0;
     pubCmd.publish(twist_msg);
